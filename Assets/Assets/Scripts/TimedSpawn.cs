@@ -17,7 +17,12 @@ public class Spawn : MonoBehaviour
 
     void SpawnObject()
     {
-        ObjectPoolManager.SpawnObject(spawnee, GameObject.Find("Spawner").transform.position, GameObject.Find("Spawner").transform.rotation);
+        spawnee = ObjectPool.SharedInstance.GetPooledObject(); 
+        if (spawnee != null) {
+            spawnee.transform.position = GameObject.Find("Spawner").transform.position;
+            spawnee.transform.rotation = GameObject.Find("Spawner").transform.rotation;
+            spawnee.SetActive(true);
+        }
         if (stopSpawning)
         {
             CancelInvoke("SpawnObject");
