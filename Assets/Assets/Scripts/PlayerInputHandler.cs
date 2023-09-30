@@ -8,6 +8,7 @@ public class PlayerInputHandler : MonoBehaviour
     public Vector2 movement { get; private set; }
     public bool interact { get; private set; }
     public bool interactPressed { get; private set; }
+    public bool sprint { get; private set; }
 
     private void LateUpdate()
     {
@@ -23,5 +24,10 @@ public class PlayerInputHandler : MonoBehaviour
     {
         interact = value.Get<float>() > 0.5f;
         interactPressed = interact;
+    }
+
+    private void OnSprint(InputValue value)
+    {
+        sprint = value.Get<float>() > 0.5f;
     }
 }
