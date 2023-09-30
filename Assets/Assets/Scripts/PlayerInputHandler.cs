@@ -7,6 +7,12 @@ public class PlayerInputHandler : MonoBehaviour
 {
     public Vector2 movement { get; private set; }
     public bool interact { get; private set; }
+    public bool interactPressed { get; private set; }
+
+    private void LateUpdate()
+    {
+        interactPressed = false;
+    }
 
     private void OnMovement(InputValue value)
     {
@@ -16,5 +22,6 @@ public class PlayerInputHandler : MonoBehaviour
     private void OnInteract(InputValue value)
     {
         interact = value.Get<float>() > 0.5f;
+        interactPressed = interact;
     }
 }

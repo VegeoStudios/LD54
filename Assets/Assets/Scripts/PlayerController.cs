@@ -11,16 +11,12 @@ public class PlayerController : MonoBehaviour
     private float targetAngle;
     private bool moving = false;
 
+    private Rigidbody grabbedObject;
+
     private PlayerInputHandler input;
     private Rigidbody rb;
-
-    public enum FacingMode
-    {
-        MOVEMENT, TARGET
-    }
-    private FacingMode facingMode;
-    private Vector3 facingTarget;
-
+    [SerializeField] private SpringJoint grabbingJoint;
+    [SerializeField] private InteractionArea interactionArea;
 
     private void Start()
     {
@@ -29,28 +25,64 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        targetMovement = RemapXYtoXZ(input.movement);
-        moving = targetMovement != Vector3.zero;
-        
-        switch (facingMode)
-        {
-            case FacingMode.MOVEMENT:
-                if (moving)
-                {
-                    targetAngle = Mathf.Atan2(targetMovement.x, targetMovement.z) * Mathf.Rad2Deg;
-                    transform.eulerAngles = new Vector3(0, Mathf.LerpAngle(transform.eulerAngles.y, targetAngle, movementParameters.turnSpeed * Time.deltaTime), 0);
-                }
-                break;
-            case FacingMode.TARGET:
+        DoBoxInteraction();
 
-                break;
-        }
-
+        GetMovementValues();
+        DoRotation();
     }
 
     private void FixedUpdate()
     {
         rb.velocity = targetMovement * movementParameters.maxMoveSpeed;
+    }
+
+    private void DoBoxInteraction()
+    {
+        if (input.interactPressed)
+        {
+            if (grabbedObject)
+            {
+                grabbedObject = null;
+                grabbingJoint.connectedBody = null;
+                interactionArea.SetCanInteract(true);
+            }
+            else
+            {
+                grabbedObject = interactionArea.selected?.GetComponent<Rigidbody>();
+                if (grabbedObject)
+                {
+                    grabbingJoint.connectedBody = grabbedObject;
+                    grabbingJoint.connectedAnchor = grabbedObject.transform.InverseTransformPoint(grabbedObject.GetComponent<Collider>().ClosestPoint(grabbingJoint.transform.position));
+                    interactionArea.SetCanInteract(false);
+                }
+            }
+            
+        }
+    }
+
+    private void GetMovementValues()
+    {
+        targetMovement = RemapXYtoXZ(input.movement);
+        moving = targetMovement != Vector3.zero;
+    }
+
+    private void DoRotation()
+    {
+        if (grabbingJoint.connectedBody)
+        {
+            Vector3 targetPos = grabbingJoint.connectedBody.transform.TransformPoint(grabbingJoint.connectedAnchor) - transform.position;
+            targetPos = new Vector3(targetPos.x, 0, targetPos.z).normalized;
+            targetAngle = Mathf.Atan2(targetPos.x, targetPos.z) * Mathf.Rad2Deg;
+        }
+        else
+        {
+            if (moving)
+            {
+                targetAngle = Mathf.Atan2(targetMovement.x, targetMovement.z) * Mathf.Rad2Deg;
+            }
+        }
+
+        transform.eulerAngles = new Vector3(0, Mathf.LerpAngle(transform.eulerAngles.y, targetAngle, movementParameters.turnSpeed * Time.deltaTime), 0);
     }
 
     private void AssignComponentReferences()

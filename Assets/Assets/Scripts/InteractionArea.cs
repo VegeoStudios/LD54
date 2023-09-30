@@ -6,7 +6,14 @@ public class InteractionArea : MonoBehaviour
 {
     private List<Interactable> objectsInArea = new List<Interactable>();
 
+    public bool canInteract {  get; private set; }
+
     public Interactable selected = null;
+
+    private void Start()
+    {
+        canInteract = true;
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -31,20 +38,23 @@ public class InteractionArea : MonoBehaviour
     {
         Interactable nextSelected = null;
 
-        float dist = float.MaxValue;
-        foreach (Interactable obj in objectsInArea)
+        if (canInteract)
         {
-            if (!obj.gameObject.activeInHierarchy)
+            float dist = float.MaxValue;
+            foreach (Interactable obj in objectsInArea)
             {
-                objectsInArea.Remove(obj);
-                continue;
-            }
+                if (!obj.gameObject.activeInHierarchy)
+                {
+                    objectsInArea.Remove(obj);
+                    continue;
+                }
 
-            float objDist = Vector3.Distance(obj.transform.position, transform.position);
-            if (dist > objDist)
-            {
-                nextSelected = obj;
-                dist = objDist;
+                float objDist = Vector3.Distance(obj.transform.position, transform.position);
+                if (dist > objDist)
+                {
+                    nextSelected = obj;
+                    dist = objDist;
+                }
             }
         }
 
@@ -54,5 +64,11 @@ public class InteractionArea : MonoBehaviour
             selected = nextSelected;
             selected?.SetHovered(true);
         }
+    }
+
+    public void SetCanInteract(bool canInteract)
+    {
+        this.canInteract = canInteract;
+        selected = null;
     }
 }
