@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class StatsBar : MonoBehaviour
 {
+    public GameObject spawner;
     [SerializeField] private Image statsBarFill;
     [SerializeField] private Text statsBarText;
     public float maximum;
@@ -26,12 +27,13 @@ public class StatsBar : MonoBehaviour
 
     void Update()
     {
-        bar = gameObject.GetComponent<Spawn>().activeCount;
+        bar = spawner.GetComponent<Spawn>().activeCount;
         UpdateStatsBar(bar, maximum, barName);
         if (bar > maximum)
         {
             FindObjectOfType<GameManager>().EndGame();
         }
     }
+
 
 }
