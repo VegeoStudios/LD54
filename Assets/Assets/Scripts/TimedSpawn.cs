@@ -4,30 +4,47 @@ using UnityEngine;
 
 public class Spawn : MonoBehaviour
 {
-    
-    public bool stopSpawning = false;
-    public float spawnTime;
     public float spawnDelay;
+    public float delayReduction;
+    private float spawnCountdown;
 
     // Start is called before the first frame update
     void Start()
     {
-        InvokeRepeating("SpawnObject", spawnTime, spawnDelay);
+        StartCoroutine(SpawnObject(spawnDelay));
     }
 
-    void SpawnObject()
+    IEnumerator SpawnObject(float delay)
     {
-        GameObject spawnee = ObjectPool.SharedInstance.GetPooledObject(); 
-        if (spawnee != null) {
-            spawnee.transform.position = GameObject.Find("Spawner").transform.position;
-            spawnee.transform.rotation = GameObject.Find("Spawner").transform.rotation;
-            spawnee.SetActive(true);
-        }
-        if (stopSpawning)
+        spawnCountdown = spawnDelay;
+        while(true)
         {
-            CancelInvoke("SpawnObject");
+            yield return null;
+            spawnCountdown -= Time.deltaTime;
+
+            if(spawnCountdown <= 0 )
+            {
+                GameObject spawnee = ObjectPool.SharedInstance.GetPooledObject(); 
+                if (spawnee != null) {
+                    spawnee.transform.position = GameObject.Find("Spawner").transform.position;
+                    spawnee.transform.rotation = GameObject.Find("Spawner").transform.rotation;
+                    spawnee.SetActive(true);
+                }
+
+                if (delay >= .5)
+                {
+                    delay -= delayReduction;
+                    spawnCountdown = delay;
+                }
+
+            }
+
         }
+
     }
 
 
 }
+
+
+
