@@ -9,10 +9,14 @@ public class PlayerInputHandler : MonoBehaviour
     public bool interact { get; private set; }
     public bool interactPressed { get; private set; }
     public bool sprint { get; private set; }
+    public bool thrustSpellPressed {  get; private set; }
+    public bool tossSpellPressed { get; private set; }
 
     private void LateUpdate()
     {
         interactPressed = false;
+        thrustSpellPressed = false;
+        tossSpellPressed = false;
     }
 
     private void OnMovement(InputValue value)
@@ -29,5 +33,15 @@ public class PlayerInputHandler : MonoBehaviour
     private void OnSprint(InputValue value)
     {
         sprint = value.Get<float>() > 0.5f;
+    }
+
+    private void OnThrustSpell(InputValue value)
+    {
+        thrustSpellPressed = value.Get<float>() > 0.5f;
+    }
+
+    private void OnTossSpell(InputValue value)
+    {
+        tossSpellPressed = value.Get<float>() > 0.5f;
     }
 }
