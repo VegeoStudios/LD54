@@ -119,8 +119,8 @@ public class PlayerController : MonoBehaviour
                     grabbedObjectOriginalMass = grabbedObject.mass;
                     grabbedObject.mass *= Mathf.Pow(Mathf.Clamp(liftStrength / grabbedObject.mass, 0.25f, 1f), 2f);
                     grabbingJoint.connectedBody = grabbedObject;
-                    //grabbingJoint.connectedAnchor = Vector3.zero;
-                    grabbingJoint.connectedAnchor = grabbedObject.transform.InverseTransformPoint(grabbedObject.GetComponent<Collider>().ClosestPoint(grabbingJoint.transform.position));
+                    grabbingJoint.connectedAnchor = Vector3.zero;
+                    //grabbingJoint.connectedAnchor = grabbedObject.transform.InverseTransformPoint(grabbedObject.GetComponent<Collider>().ClosestPoint(grabbingJoint.transform.position));
                     interactionArea.SetCanInteract(false);
                 }
             }

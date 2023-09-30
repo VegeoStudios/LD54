@@ -69,6 +69,7 @@ public class InteractionArea : MonoBehaviour
     public void SetCanInteract(bool canInteract)
     {
         this.canInteract = canInteract;
+        if (!canInteract) selected?.SetHovered(false);
         selected = null;
     }
 }

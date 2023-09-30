@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class Box : Interactable
 {
-    [SerializeField] private BoxTypeAssets assets;
+    [SerializeField] private KingdomAssets assets;
 
-    public int boxType;
+    public int kingdom;
 
     private MeshRenderer colorIndicator;
 
@@ -30,8 +30,8 @@ public class Box : Interactable
     {
         while (true)
         {
-            boxType = (boxType + 1) % assets.textures.Length;
-            SetBoxType(boxType);
+            kingdom = (kingdom + 1) % assets.textures.Length;
+            SetBoxType(kingdom);
             yield return new WaitForSeconds(1f);
         }
     }
