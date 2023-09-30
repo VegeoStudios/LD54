@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Spawn : MonoBehaviour
 {
-    public GameObject spawnee;
     public bool stopSpawning = false;
     public float spawnTime;
     public float spawnDelay;
@@ -17,7 +16,7 @@ public class Spawn : MonoBehaviour
 
     void SpawnObject()
     {
-        spawnee = ObjectPool.SharedInstance.GetPooledObject(); 
+        GameObject spawnee = ObjectPool.SharedInstance.GetPooledObject(); 
         if (spawnee != null) {
             spawnee.transform.position = GameObject.Find("Spawner").transform.position;
             spawnee.transform.rotation = GameObject.Find("Spawner").transform.rotation;
