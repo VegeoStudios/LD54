@@ -8,6 +8,8 @@ public class PlayerController : MonoBehaviour
     public MovementParameters movementParameters;
     public float liftStrength;
     public float breakDistance;
+    public Vector3 thrustSpellForce;
+    public Vector3 tossSpellForce;
 
     private Vector3 targetMovement;
     private float targetAngle;
@@ -34,8 +36,8 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        DoSpells();
         DoBoxInteraction();
-        
         GetMovementValues();
         DoRotation();
         AnimateArms();
@@ -69,6 +71,21 @@ public class PlayerController : MonoBehaviour
         if (input.sprint && !grabbedObject) speed = movementParameters.sprintMoveSpeed;
         rb.AddForce(targetMovement * speed * rb.mass * multiplier);
         //rb.velocity = targetMovement * (input.sprint ? movementParameters.sprintMoveSpeed : movementParameters.baseMoveSpeed);
+    }
+
+    private void DoSpells()
+    {
+        if (!grabbedObject) return;
+        if (input.thrustSpellPressed)
+        {
+            grabbedObject.AddForce(transform.rotation * thrustSpellForce * grabbedObject.mass, ForceMode.Impulse);
+            DropBox();
+        }
+        else if (input.tossSpellPressed)
+        {
+            grabbedObject.AddForce(transform.rotation * tossSpellForce * grabbedObject.mass, ForceMode.Impulse);
+            DropBox();
+        }
     }
 
     private void AnimateArms()
