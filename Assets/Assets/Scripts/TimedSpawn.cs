@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Spawn : MonoBehaviour
 {
+    
     public bool stopSpawning = false;
     public float spawnTime;
     public float spawnDelay;
