@@ -10,8 +10,7 @@ public class StatsBar : MonoBehaviour
     [SerializeField] private Text statsBarText;
     public float maximum;
     public string barName;
-    [HideInInspector]
-    public float bar;
+    [HideInInspector] public float bar;
 
     private void Start()
     {
