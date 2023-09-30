@@ -12,5 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee081e37c3f62ab4aa9126a29f4c8ef6, type: 3}
   m_Name: BoxTypes
   m_EditorClassIdentifier: 
-  textures: []
-  colors: []
+  textures:
+  - {fileID: 2800000, guid: 1c3a92f11b28ae14cb899f9be4fac4e3, type: 3}
+  - {fileID: 2800000, guid: f425126cfd0678046b27a13eafe70085, type: 3}
+  - {fileID: 2800000, guid: 01bf1c9d2d1ff3742a83c5213cd514c9, type: 3}
+  - {fileID: 2800000, guid: a488b5f1f4185b042a566ffc5f74c4b1, type: 3}
+  colors:
+  - {r: 1, g: 0, b: 0, a: 1}
+  - {r: 0.5234003, g: 0, b: 1, a: 1}
+  - {r: 0, g: 0.946259, b: 1, a: 1}
+  - {r: 0.47636795, g: 1, b: 0, a: 1}
