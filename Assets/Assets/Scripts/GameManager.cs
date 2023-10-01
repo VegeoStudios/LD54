@@ -5,17 +5,17 @@ public class GameManager : MonoBehaviour
 {
     bool gameHasEnded = false;
 
-    public float restartDelay = 1f;
+    [HideInInspector] public float timeDelay = .25f;
 
     public PlayerController playerController;
 
-    public void EndGame()
+    public void RestartGame()
     {
         if (gameHasEnded == false)
         {
             gameHasEnded = true;
             Debug.Log("GAME OVER");
-            Invoke("Restart", restartDelay);
+            Invoke("Restart", timeDelay);
         }
     }
 

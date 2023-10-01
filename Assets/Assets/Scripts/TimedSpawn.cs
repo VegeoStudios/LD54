@@ -7,12 +7,12 @@ public class Spawn : MonoBehaviour
     public float spawnDelay;
     public float delayReduction;
     private float spawnCountdown;
-    [HideInInspector]
-    public int activeCount;
+    [HideInInspector] public int activeCount;
 
     // Start is called before the first frame update
     void Start()
     {
+        Spawnee();
         StartCoroutine(SpawnObject(spawnDelay));
     }
 
@@ -26,23 +26,30 @@ public class Spawn : MonoBehaviour
 
             if(spawnCountdown <= 0 )
             {
-                GameObject spawnee = ObjectPool.SharedInstance.GetPooledObject(); 
-                if (spawnee != null) {
-                    spawnee.transform.position = new Vector3(Random.Range(-9, 10), 20, Random.Range(-9, 10));
-                    spawnee.SetActive(true);
-                    activeCount++;
+                if (delay <= .5f)
+                {
+                    spawnCountdown = .5f;
                 }
-
-                if (delay >= .5)
+                else
                 {
                     delay -= delayReduction;
                     spawnCountdown = delay;
                 }
 
+                Spawnee(); 
+
             }
-
         }
+    }
 
+    void Spawnee()
+    {
+        GameObject spawnee = ObjectPool.SharedInstance.GetPooledObject(); 
+        if (spawnee != null) {
+            spawnee.transform.position = new Vector3(Random.Range(-9, 10), 20, Random.Range(-9, 10));
+            spawnee.SetActive(true);
+            activeCount++;
+        }
     }
 
 

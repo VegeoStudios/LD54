@@ -30,7 +30,7 @@ public class StatsBar : MonoBehaviour
         UpdateStatsBar(bar, maximum, barName);
         if (bar > maximum)
         {
-            FindObjectOfType<GameManager>().EndGame();
+            FindObjectOfType<GameManager>().RestartGame();
         }
     }
 

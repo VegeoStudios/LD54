@@ -64,6 +64,4 @@ MonoBehaviour:
   - {fileID: 0}
   objectsToSpawn:
   - {fileID: 5951552457919954171, guid: 038d4f02aa893e6499a63efc0b79cd22, type: 3}
-  - {fileID: 0}
-  - {fileID: 0}
   amountToPool: 200
