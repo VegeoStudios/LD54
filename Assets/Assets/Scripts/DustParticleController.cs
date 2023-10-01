@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.VFX;
 
-public class ParticleMaster : MonoBehaviour
+public class DustParticleController : MonoBehaviour
 {
+    public static DustParticleController instance;
     private VisualEffect _effect;
 
     private void Start()
     {
+        instance = this;
         _effect = GetComponent<VisualEffect>();
     }
 

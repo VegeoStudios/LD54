@@ -5,8 +5,6 @@ using UnityEngine.VFX;
 
 public class Ground : MonoBehaviour
 {
-    public ParticleMaster particleMaster;
-
     private ContactPoint[] contacts = new ContactPoint[8];
 
     public void OnCollisionEnter(Collision collision)
@@ -18,6 +16,6 @@ public class Ground : MonoBehaviour
             position += contacts[i].point;
         }
         position /= count;
-        particleMaster.CreateDirtParticles(position, 0.5f);
+        DustParticleController.instance.CreateDirtParticles(position, 1f);
     }
 }

@@ -26,6 +26,8 @@ public class CarriageBayController : MonoBehaviour
 
     public bool tryingToLeave = false;
 
+    public int cartIndex;
+
     private void Start()
     {
         ResetCarriage();
@@ -48,7 +50,7 @@ public class CarriageBayController : MonoBehaviour
 
     private IEnumerator Arrive()
     {
-        SetKingdom(Random.Range(0, kingdomAssets.timers.Length));
+        SetKingdom(GameManager.instance.GetNextKingdomNumber(cartIndex));
 
         float startTime = Time.time;
         while (Time.time - startTime < animationTime)

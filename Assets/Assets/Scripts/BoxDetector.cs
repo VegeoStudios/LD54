@@ -5,12 +5,18 @@ using UnityEngine;
 public class BoxDetector : MonoBehaviour
 {
     public List<Box> boxes = new List<Box>();
+    public CarriageBayController controller;
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.GetComponent<Box>() != null)
         {
-            boxes.Add(other.GetComponent<Box>());
+            Box box = other.GetComponent<Box>();
+            boxes.Add(box);
+            if (controller.kingdom != box.kingdom)
+            {
+                box.wrongBin = true;
+            }
         }
     }
 
@@ -18,7 +24,9 @@ public class BoxDetector : MonoBehaviour
     {
         if (other.GetComponent<Box>() != null)
         {
-            boxes.Remove(other.GetComponent<Box>());
+            Box box = other.GetComponent<Box>();
+            boxes.Remove(box);
+            box.wrongBin = false;
         }
     }
 }
