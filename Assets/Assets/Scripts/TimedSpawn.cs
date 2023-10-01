@@ -48,6 +48,7 @@ public class Spawn : MonoBehaviour
         if (spawnee != null) {
             spawnee.transform.position = new Vector3(Random.Range(-9, 10), 20, Random.Range(-9, 10));
             spawnee.SetActive(true);
+            spawnee.GetComponent<Box>().Init();
             activeCount++;
         }
     }

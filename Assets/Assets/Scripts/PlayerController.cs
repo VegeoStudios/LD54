@@ -65,7 +65,6 @@ public class PlayerController : MonoBehaviour
             float dot = Vector3.Dot(targetMovement, (objpos - transform.position).normalized) * 0.25f + 1f;
             multiplier = dot;
             multiplier *= Mathf.Clamp(liftStrength / grabbedObjectOriginalMass, 0.25f, 1f);
-            Debug.Log(dot);
         }
 
         sweatIndicator.gameObject.SetActive(multiplier < 0.5f);

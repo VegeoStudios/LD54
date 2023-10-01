@@ -5,8 +5,8 @@ using UnityEngine;
 public class ObjectPool : MonoBehaviour
 {
     public static ObjectPool SharedInstance;
-    [HideInInspector] public List<GameObject> pooledObjects;
-    public List<GameObject> objectsToSpawn;
+    public List<GameObject> pool;
+    public GameObject pooledObject;
     public int amountToPool;
 
     void Awake()
@@ -16,13 +16,13 @@ public class ObjectPool : MonoBehaviour
 
     void Start()
     {
-        pooledObjects = new List<GameObject>();
+        pool = new List<GameObject>();
         GameObject tmp;
         for(int i = 0; i < amountToPool; i++)
         {
-            tmp = Instantiate(objectsToSpawn[Random.Range(0, objectsToSpawn.Count)]);
+            tmp = Instantiate(pooledObject);
             tmp.SetActive(false);
-            pooledObjects.Add(tmp);
+            pool.Add(tmp);
         }
     }
 
@@ -30,9 +30,9 @@ public class ObjectPool : MonoBehaviour
     {
         for(int i = 0; i < amountToPool; i++)
         {
-            if(!pooledObjects[i].activeInHierarchy)
+            if(!pool[i].activeInHierarchy)
             {
-                return pooledObjects[i];
+                return pool[i];
             }
         }
         return null;

@@ -45,7 +45,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5951552457919954171}
-  m_Mesh: {fileID: 8035129574820799030, guid: c169e73fcdbbd7645a9d5af40ef11bf1, type: 3}
+  m_Mesh: {fileID: 8035129574820799030, guid: a5230f2e17aaae843ab9cba1309684b1, type: 3}
 --- !u!23 &1607015969410690170
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -66,7 +66,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -6478536213147159724, guid: c169e73fcdbbd7645a9d5af40ef11bf1, type: 3}
+  - {fileID: -6478536213147159724, guid: a5230f2e17aaae843ab9cba1309684b1, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -104,7 +104,7 @@ BoxCollider:
     m_Bits: 0
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
-  m_ProvidesContacts: 0
+  m_ProvidesContacts: 1
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
@@ -195,6 +195,7 @@ MonoBehaviour:
   hovered: 0
   assets: {fileID: 11400000, guid: 4ec4af3a3def5824484e09ae7d408983, type: 2}
   kingdom: 0
+  rb: {fileID: 0}
   grabbed: 0
   wrongBin: 0
 --- !u!1 &6068314594222694693
@@ -208,7 +209,6 @@ GameObject:
   - component: {fileID: 2991131376075565382}
   - component: {fileID: 7496429551260074392}
   - component: {fileID: 4230631377288474267}
-  - component: {fileID: 1086747604551709323}
   m_Layer: 0
   m_Name: ColorIndicator
   m_TagString: Untagged
@@ -281,24 +281,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &1086747604551709323
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6068314594222694693}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}

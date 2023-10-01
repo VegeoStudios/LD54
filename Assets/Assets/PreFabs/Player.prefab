@@ -451,7 +451,7 @@ MonoBehaviour:
     baseMoveSpeed: 25
     sprintMoveSpeed: 40
     turnSpeed: 8
-  liftStrength: 30
+  liftStrength: 50
   breakDistance: 1.5
   thrustSpellForce: {x: 0, y: 3, z: 8}
   tossSpellForce: {x: 0, y: 10, z: 0}

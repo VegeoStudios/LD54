@@ -14,9 +14,9 @@ public class Box : Interactable
     public bool grabbed;
     public bool wrongBin;
 
-    protected override void Start()
+    protected override void Awake()
     {
-        base.Start();
+        base.Awake();
         colorIndicator = transform.GetChild(0).GetComponent<MeshRenderer>();
         rb = GetComponent<Rigidbody>();
         //StartCoroutine(PartyRoutine());
@@ -43,6 +43,12 @@ public class Box : Interactable
         {
             outline.enabled = false;
         }
+    }
+
+    public void Init()
+    {
+        SetBoxType(Random.Range(0, assets.colors.Length));
+        rb.isKinematic = false;
     }
 
     public void SetBoxType(int type)

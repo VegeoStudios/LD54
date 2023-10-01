@@ -97,7 +97,8 @@ public class CarriageBayController : MonoBehaviour
         while (boxesParent.childCount > 0)
         {
             Transform obj = boxesParent.GetChild(0);
-            Destroy(obj);
+            obj.parent = null;
+            obj.gameObject.SetActive(false);
         }
 
         boxDetector.boxes = new List<Box>();
@@ -123,6 +124,6 @@ public class CarriageBayController : MonoBehaviour
         kingdomDisplay.material.SetColor("_EmissionColor", kingdomAssets.colors[kingdom]);
         kingdomDisplay.material.SetTexture("_BaseMap", kingdomAssets.textures[kingdom]);
         kingdomDisplay.material.SetTexture("_EmissionMap", kingdomAssets.textures[kingdom]);
-        goalTime = kingdomAssets.timers[kingdom] * 0.2f;
+        goalTime = kingdomAssets.timers[kingdom];
     }
 }

@@ -7,7 +7,7 @@ public class Interactable : MonoBehaviour
     protected Outline outline;
     public bool hovered;
 
-    protected virtual void Start()
+    protected virtual void Awake()
     {
         outline = GetComponent<Outline>();
     }
