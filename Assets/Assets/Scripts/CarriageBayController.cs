@@ -48,7 +48,7 @@ public class CarriageBayController : MonoBehaviour
 
     private IEnumerator Arrive()
     {
-        SetKingdom(Random.Range(0, kingdomAssets.textures.Length));
+        SetKingdom(Random.Range(0, kingdomAssets.timers.Length));
 
         float startTime = Time.time;
         while (Time.time - startTime < animationTime)
@@ -123,6 +123,6 @@ public class CarriageBayController : MonoBehaviour
         kingdomDisplay.material.SetColor("_EmissionColor", kingdomAssets.colors[kingdom]);
         kingdomDisplay.material.SetTexture("_BaseMap", kingdomAssets.textures[kingdom]);
         kingdomDisplay.material.SetTexture("_EmissionMap", kingdomAssets.textures[kingdom]);
-        goalTime = kingdomAssets.timers[kingdom];
+        goalTime = kingdomAssets.timers[kingdom] * 0.2f;
     }
 }
