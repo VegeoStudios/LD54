@@ -8,7 +8,7 @@ public class Spawn : MonoBehaviour
     public float delayReduction;
     private float spawnCountdown;
     [HideInInspector]
-    public float activeCount;
+    public int activeCount;
 
     // Start is called before the first frame update
     void Start()
@@ -28,8 +28,7 @@ public class Spawn : MonoBehaviour
             {
                 GameObject spawnee = ObjectPool.SharedInstance.GetPooledObject(); 
                 if (spawnee != null) {
-                    spawnee.transform.position = GameObject.Find("Spawner").transform.position;
-                    spawnee.transform.rotation = GameObject.Find("Spawner").transform.rotation;
+                    spawnee.transform.position = new Vector3(Random.Range(-9, 10), 20, Random.Range(-9, 10));
                     spawnee.SetActive(true);
                     activeCount++;
                 }
