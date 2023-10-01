@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Interactable : MonoBehaviour
 {
-    private Outline outline;
+    protected Outline outline;
     public bool hovered;
 
     protected virtual void Start()
@@ -15,6 +15,5 @@ public class Interactable : MonoBehaviour
     public void SetHovered(bool val)
     {
         hovered = val;
-        outline.enabled = val;
     }
 }

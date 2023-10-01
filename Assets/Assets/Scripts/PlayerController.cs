@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Animations;
+using UnityEngine.VFX;
 
 public class PlayerController : MonoBehaviour
 {
@@ -28,6 +29,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private RotationConstraint[] armRotationConstraints;
     [SerializeField] private PositionConstraint[] armPositionConstraints;
     [SerializeField] private Transform sweatIndicator;
+    [SerializeField] private VisualEffect trail;
 
     private void Start()
     {
@@ -41,6 +43,7 @@ public class PlayerController : MonoBehaviour
         GetMovementValues();
         DoRotation();
         AnimateArms();
+        DoParticles();
     }
 
     private void FixedUpdate()
@@ -71,6 +74,14 @@ public class PlayerController : MonoBehaviour
         if (input.sprint && !grabbedObject) speed = movementParameters.sprintMoveSpeed;
         rb.AddForce(targetMovement * speed * rb.mass * multiplier);
         //rb.velocity = targetMovement * (input.sprint ? movementParameters.sprintMoveSpeed : movementParameters.baseMoveSpeed);
+    }
+
+    private void DoParticles()
+    {
+        if (rb.velocity.magnitude < 6f)
+        {
+            trail.Play();
+        }
     }
 
     private void DoSpells()
@@ -116,6 +127,7 @@ public class PlayerController : MonoBehaviour
                 grabbedObject = interactionArea.selected?.GetComponent<Rigidbody>();
                 if (grabbedObject)
                 {
+                    grabbedObject.GetComponent<Box>().grabbed = true;
                     grabbedObjectOriginalMass = grabbedObject.mass;
                     grabbedObject.mass *= Mathf.Pow(Mathf.Clamp(liftStrength / grabbedObject.mass, 0.25f, 1f), 2f);
                     grabbingJoint.connectedBody = grabbedObject;
@@ -131,6 +143,7 @@ public class PlayerController : MonoBehaviour
     private void DropBox()
     {
         if (!grabbedObject) return;
+        grabbedObject.GetComponent<Box>().grabbed = false;
         grabbedObject.mass = grabbedObjectOriginalMass;
         grabbedObject = null;
         grabbingJoint.connectedBody = null;
