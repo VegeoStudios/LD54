@@ -7,4 +7,5 @@ public class KingdomAssets : ScriptableObject
 {
     public Texture2D[] textures;
     public Color[] colors;
+    public float[] timers;
 }

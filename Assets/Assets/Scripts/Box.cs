@@ -9,6 +9,7 @@ public class Box : Interactable
     public int kingdom;
 
     private MeshRenderer colorIndicator;
+    public Rigidbody rb;
 
     public bool grabbed;
     public bool wrongBin;
@@ -17,6 +18,7 @@ public class Box : Interactable
     {
         base.Start();
         colorIndicator = transform.GetChild(0).GetComponent<MeshRenderer>();
+        rb = GetComponent<Rigidbody>();
         //StartCoroutine(PartyRoutine());
     }
 
@@ -45,6 +47,7 @@ public class Box : Interactable
 
     public void SetBoxType(int type)
     {
+        kingdom = type;
         colorIndicator.material.SetColor("_BaseColor", assets.colors[type]);
         colorIndicator.material.SetColor("_EmissionColor", assets.colors[type]);
         colorIndicator.material.SetTexture("_BaseMap", assets.textures[type]);
