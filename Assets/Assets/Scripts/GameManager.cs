@@ -7,6 +7,8 @@ public class GameManager : MonoBehaviour
 
     public float restartDelay = 1f;
 
+    public PlayerController playerController;
+
     public void EndGame()
     {
         if (gameHasEnded == false)

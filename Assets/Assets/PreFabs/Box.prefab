@@ -194,7 +194,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hovered: 0
   assets: {fileID: 11400000, guid: 4ec4af3a3def5824484e09ae7d408983, type: 2}
-  boxType: 0
+  kingdom: 0
+  grabbed: 0
+  wrongBin: 0
 --- !u!1 &6068314594222694693
 GameObject:
   m_ObjectHideFlags: 0
