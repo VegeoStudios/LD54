@@ -1,17 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Animations;
 
 public class Carriage : MonoBehaviour
 {
-    
-    public float smoothing = 0.01f;
-    public Transform target;
+    public PositionConstraint constraint;
 
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(arrive(target));
+        StartCoroutine(arrive(constraint));
     }
 
     // Update is called once per frame
@@ -20,14 +19,11 @@ public class Carriage : MonoBehaviour
         
     }
 
-    IEnumerator arrive(Transform target)
+    IEnumerator arrive(PositionConstraint positionConstraint)
     {
-        while(Vector3.Distance(transform.position, target.position) > 15)
-        {
-            transform.position = Vector3.Lerp(transform.position, target.position, smoothing * Time.deltaTime);
-        }
+        positionConstraint.weight = 1;
         yield return new WaitForSeconds(30);
-
+        positionConstraint.weight = 0;
         
     }
 }
