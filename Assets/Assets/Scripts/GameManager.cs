@@ -1,3 +1,5 @@
+using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -10,6 +12,9 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public float timeDelay = .25f;
 
     public PlayerController playerController;
+    public TextMeshPro scoreUI;
+
+    public int score = 0;
 
     public int maxKingdom = 3;
 
@@ -20,9 +25,54 @@ public class GameManager : MonoBehaviour
 
     public int scoreMultiplier = 1;
 
+    private int scoreToAdd = 0;
+
     private void Awake()
     {
         instance = this;
+    }
+
+    private void SaveScore()
+    {
+        if (PlayerPrefs.HasKey("highScore"))
+        {
+            if (score > PlayerPrefs.GetInt("highScore"))
+            {
+                PlayerPrefs.SetInt("highScore", score);
+                PlayerPrefs.Save();
+            }
+        }
+        else
+        {
+            PlayerPrefs.SetInt("highScore", score);
+            PlayerPrefs.Save();
+        }
+    }
+
+    public void AddToScore(int count)
+    {
+        if (scoreToAdd == 0)
+        {
+            StartCoroutine(AddScoreRoutine());
+        }
+        scoreToAdd += count;
+    }
+
+    private IEnumerator AddScoreRoutine()
+    {
+        yield return null;
+        while (scoreToAdd > 0)
+        {
+            scoreToAdd--;
+            IncrementScore(scoreMultiplier);
+            yield return new WaitForSeconds(0.1f);
+        }
+    }
+
+    private void IncrementScore(int amount)
+    {
+        score += amount;
+        scoreUI.text = score.ToString();
     }
 
     public void RestartGame()
