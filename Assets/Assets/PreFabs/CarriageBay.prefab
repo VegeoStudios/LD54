@@ -143,6 +143,7 @@ MonoBehaviour:
   timerValue: 0
   timerCounting: 0
   tryingToLeave: 0
+  cartIndex: 0
 --- !u!1 &5654546285274328341
 GameObject:
   m_ObjectHideFlags: 0
@@ -582,6 +583,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boxes: []
+  controller: {fileID: 914178698553647142}
 --- !u!4 &5039089694776546366 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1192217841639245130, guid: fad771d265442fa4badfc642c0d9e8d2,

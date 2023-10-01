@@ -180,7 +180,7 @@ VisualEffect:
   m_GameObject: {fileID: 2546171396134185278}
   m_Enabled: 1
   m_Asset: {fileID: 8926484042661614526, guid: ff4c17949f736db41a6c93821f100547, type: 3}
-  m_InitialEventName: OnPlay
+  m_InitialEventName: 
   m_InitialEventNameOverriden: 0
   m_StartSeed: 0
   m_ResetSeedOnPlay: 1
@@ -322,7 +322,7 @@ SpringJoint:
   m_AutoConfigureConnectedAnchor: 0
   m_ConnectedAnchor: {x: 0, y: 0, z: 0}
   serializedVersion: 2
-  m_Spring: 500
+  m_Spring: 750
   m_Damper: 0.2
   m_MinDistance: 0
   m_MaxDistance: 0
@@ -449,12 +449,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementParameters:
     baseMoveSpeed: 25
-    sprintMoveSpeed: 40
+    sprintMoveSpeed: 50
     turnSpeed: 8
   liftStrength: 40
   breakDistance: 1.5
-  thrustSpellForce: {x: 0, y: 3, z: 8}
-  tossSpellForce: {x: 0, y: 10, z: 0}
+  thrustSpellForce: {x: 0, y: 4, z: 10}
+  tossSpellForce: {x: 0, y: 17.5, z: 1}
   grabbingJoint: {fileID: 2720006961948177689}
   interactionArea: {fileID: 4068501249586902111}
   animator: {fileID: 7612318390219849549}

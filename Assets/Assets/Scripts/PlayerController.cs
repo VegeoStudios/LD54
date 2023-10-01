@@ -57,17 +57,19 @@ public class PlayerController : MonoBehaviour
         }
 
         float multiplier = 1f;
+        bool pulling = false;
         if (grabbedObject)
         {
             
             Vector3 objpos = grabbedObject.transform.position;
             objpos.y = 0;
-            float dot = Vector3.Dot(targetMovement, (objpos - transform.position).normalized) * 0.25f + 1f;
-            multiplier = dot;
+            float dot = Vector3.Dot(targetMovement, (objpos - transform.position).normalized);
+            pulling = dot < 0;
+            multiplier = dot * 0.25f + 1f;
             multiplier *= Mathf.Clamp(liftStrength / grabbedObjectOriginalMass, 0.25f, 1f);
         }
 
-        sweatIndicator.gameObject.SetActive(multiplier < 0.5f);
+        sweatIndicator.gameObject.SetActive(pulling);
 
         float speed = movementParameters.baseMoveSpeed;
         if (input.sprint && !grabbedObject) speed = movementParameters.sprintMoveSpeed;
@@ -89,11 +91,13 @@ public class PlayerController : MonoBehaviour
         if (input.thrustSpellPressed)
         {
             grabbedObject.AddForce(transform.rotation * thrustSpellForce * grabbedObject.mass, ForceMode.Impulse);
+            MagicParticleController.instance.CreateMagicParticles(transform.position + Vector3.up + transform.rotation * thrustSpellForce.normalized * 0.5f, (transform.rotation * thrustSpellForce).normalized);
             DropBox();
         }
         else if (input.tossSpellPressed)
         {
             grabbedObject.AddForce(transform.rotation * tossSpellForce * grabbedObject.mass, ForceMode.Impulse);
+            MagicParticleController.instance.CreateMagicParticles(transform.position + Vector3.up + transform.rotation * tossSpellForce.normalized * 0.5f, (transform.rotation * tossSpellForce).normalized);
             DropBox();
         }
     }
