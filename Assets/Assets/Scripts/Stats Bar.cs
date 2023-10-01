@@ -8,18 +8,19 @@ public class StatsBar : MonoBehaviour
     public GameObject spawner;
     [SerializeField] private Image statsBarFill;
     [SerializeField] private Text statsBarText;
+    public Slider slider;
     public float maximum;
     public string barName;
     [HideInInspector] public float bar;
 
     private void Start()
     {
-        UpdateStatsBar(bar, maximum, barName);
+        UpdateStatsBar(0, maximum, barName);
     }
 
     public void UpdateStatsBar(float current, float maximum, string statsName)
     {
-        statsBarFill.fillAmount = current / maximum;
+        slider.value = current / maximum;
 
         statsBarText.text = statsName + ": " + current + "/" + maximum;
     }
