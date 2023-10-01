@@ -96,6 +96,7 @@ public class CarriageBayController : MonoBehaviour
 
     private void ResetCarriage()
     {
+        GameManager.instance.AddToScore(boxesParent.childCount);
         while (boxesParent.childCount > 0)
         {
             Transform obj = boxesParent.GetChild(0);
