@@ -10,6 +10,7 @@ public class Box : Interactable
 
     private MeshRenderer colorIndicator;
     public Rigidbody rb;
+    private RandomSoundPool soundPool;
 
     public bool grabbed;
     public bool wrongBin;
@@ -19,6 +20,7 @@ public class Box : Interactable
         base.Awake();
         colorIndicator = transform.GetChild(0).GetComponent<MeshRenderer>();
         rb = GetComponent<Rigidbody>();
+        soundPool = GetComponent<RandomSoundPool>();
         //StartCoroutine(PartyRoutine());
     }
 
@@ -43,6 +45,11 @@ public class Box : Interactable
         {
             outline.enabled = false;
         }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        soundPool.PlaySoundFromPoolVolume(Mathf.Min(collision.relativeVelocity.magnitude * 0.05f, 0.4f));
     }
 
     public void Init()

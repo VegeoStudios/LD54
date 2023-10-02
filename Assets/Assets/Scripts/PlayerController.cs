@@ -23,6 +23,7 @@ public class PlayerController : MonoBehaviour
 
     private PlayerInputHandler input;
     private Rigidbody rb;
+    private RandomSoundPool soundPool;
     [SerializeField] private SpringJoint grabbingJoint;
     [SerializeField] private InteractionArea interactionArea;
     [SerializeField] private Animator animator;
@@ -30,7 +31,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private PositionConstraint[] armPositionConstraints;
     [SerializeField] private Transform sweatIndicator;
     [SerializeField] private VisualEffect trail;
-    [SerializeField] private RandomSoundPool soundPool;
+    [SerializeField] private RandomSoundPool spellSounds;
 
     private float lastFootstep;
 
@@ -101,12 +102,14 @@ public class PlayerController : MonoBehaviour
         if (!grabbedObject) return;
         if (input.thrustSpellPressed)
         {
+            spellSounds.PlaySoundFromPoolPitch(1f);
             grabbedObject.AddForce(transform.rotation * thrustSpellForce * grabbedObject.mass, ForceMode.Impulse);
             MagicParticleController.instance.CreateMagicParticles(transform.position + Vector3.up + transform.rotation * thrustSpellForce.normalized * 0.5f, (transform.rotation * thrustSpellForce).normalized);
             DropBox();
         }
         else if (input.tossSpellPressed)
         {
+            spellSounds.PlaySoundFromPoolPitch(0.8f);
             grabbedObject.AddForce(transform.rotation * tossSpellForce * grabbedObject.mass, ForceMode.Impulse);
             MagicParticleController.instance.CreateMagicParticles(transform.position + Vector3.up + transform.rotation * tossSpellForce.normalized * 0.5f, (transform.rotation * tossSpellForce).normalized);
             DropBox();

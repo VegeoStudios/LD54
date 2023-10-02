@@ -18,4 +18,16 @@ public class RandomSoundPool : MonoBehaviour
         audioSource.clip = clipList[Random.Range(0, clipList.Count)];
         audioSource.Play();
     }
+
+    public void PlaySoundFromPoolPitch(float pitch)
+    {
+        audioSource.pitch = pitch;
+        PlaySoundFromPool();
+    }
+
+    public void PlaySoundFromPoolVolume(float volume)
+    {
+        audioSource.volume = volume;
+        PlaySoundFromPool();
+    }
 }
