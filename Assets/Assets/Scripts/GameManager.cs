@@ -20,6 +20,8 @@ public class GameManager : MonoBehaviour
     public Volume vignette;
     public Transform cameraAnchor;
     public RectMask2D gameOverMask;
+    public AudioSource musicSource;
+    public AudioSource gameOverSoundSource;
 
     public int score = 0;
 
@@ -39,6 +41,16 @@ public class GameManager : MonoBehaviour
         instance = this;
     }
 
+    public void PauseMusic()
+    {
+        musicSource.Pause();
+    }
+
+    public void ResumeMusic()
+    {
+        musicSource.UnPause();
+    }
+
     public void EndGame()
     {
         StartCoroutine(EndGameRoutine());
@@ -50,6 +62,8 @@ public class GameManager : MonoBehaviour
         pauseMenu.gameObject.SetActive(false);
 
         SaveScore();
+
+        gameOverSoundSource.Play();
 
         while (vignette.weight < 1f)
         {

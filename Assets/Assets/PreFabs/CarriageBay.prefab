@@ -138,7 +138,7 @@ MonoBehaviour:
   kingdomDisplay: {fileID: 2653185531517053934}
   timerText: {fileID: 8602928751593202189}
   kingdom: 0
-  animationTime: 3
+  animationTime: 1.5
   goalTime: 5
   timerValue: 0
   timerCounting: 0
