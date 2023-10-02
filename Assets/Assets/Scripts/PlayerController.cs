@@ -79,10 +79,7 @@ public class PlayerController : MonoBehaviour
 
     private void DoParticles()
     {
-        if (rb.velocity.magnitude < 6f)
-        {
-            trail.Play();
-        }
+        trail.SetBool("active", rb.velocity.magnitude > 6f);
     }
 
     private void DoSpells()

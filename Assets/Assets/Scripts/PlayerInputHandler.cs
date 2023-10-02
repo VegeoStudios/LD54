@@ -8,7 +8,7 @@ public class PlayerInputHandler : MonoBehaviour
     public Vector2 movement { get; private set; }
     public bool interact { get; private set; }
     public bool interactPressed { get; private set; }
-    public bool sprint { get; private set; }
+    public bool sprint = true;
     public bool thrustSpellPressed {  get; private set; }
     public bool tossSpellPressed { get; private set; }
 

@@ -9,6 +9,7 @@ public class Ground : MonoBehaviour
 
     public void OnCollisionEnter(Collision collision)
     {
+        if (collision.transform == GameManager.instance.playerController.transform) return;
         int count = collision.GetContacts(contacts);
         Vector3 position = Vector3.zero;
         for (int i = 0; i < count; i++)
