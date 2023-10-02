@@ -5,11 +5,11 @@ using UnityEngine;
 
 public class MainMenuHighScore : MonoBehaviour
 {
-    private TextMeshPro text;
+    private TextMeshProUGUI text;
 
     private void Start()
     {
-        text = GetComponent<TextMeshPro>();
+        text = GetComponent<TextMeshProUGUI>();
         if (PlayerPrefs.HasKey("highScore"))
         {
             text.text = PlayerPrefs.GetInt("highScore").ToString();

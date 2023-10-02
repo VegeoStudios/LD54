@@ -102,6 +102,7 @@ public class CarriageBayController : MonoBehaviour
             Transform obj = boxesParent.GetChild(0);
             obj.parent = null;
             obj.gameObject.SetActive(false);
+            GameManager.instance.spawner.activeCount--;
         }
 
         boxDetector.boxes = new List<Box>();
