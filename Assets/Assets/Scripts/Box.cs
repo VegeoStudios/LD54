@@ -47,7 +47,7 @@ public class Box : Interactable
 
     public void Init()
     {
-        SetBoxType(Random.Range(0, GameManager.instance.maxKingdom));
+        SetBoxType(Random.Range(0, GameManager.instance.maxKingdom + 1));
         rb.isKinematic = false;
     }
 

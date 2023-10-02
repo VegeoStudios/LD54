@@ -1,7 +1,9 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -13,6 +15,11 @@ public class GameManager : MonoBehaviour
 
     public PlayerController playerController;
     public TextMeshPro scoreUI;
+    public Spawn spawner;
+    public Transform pauseMenu;
+    public Volume vignette;
+    public Transform cameraAnchor;
+    public RectMask2D gameOverMask;
 
     public int score = 0;
 
@@ -30,6 +37,36 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
+    }
+
+    public void EndGame()
+    {
+        StartCoroutine(EndGameRoutine());
+    }
+
+    private IEnumerator EndGameRoutine()
+    {
+        Time.timeScale = 0;
+        pauseMenu.gameObject.SetActive(false);
+
+        SaveScore();
+
+        while (vignette.weight < 1f)
+        {
+            cameraAnchor.position = Vector3.Lerp(cameraAnchor.position, Vector3.up * 50, Time.unscaledDeltaTime * 0.25f);
+            vignette.weight += Time.unscaledDeltaTime * 0.5f;
+            yield return null;
+        }
+
+        while (gameOverMask.padding.magnitude > 1f)
+        {
+            gameOverMask.padding = Vector4.Lerp(gameOverMask.padding, Vector4.zero, Time.unscaledDeltaTime * 2);
+            yield return null;
+        }
+
+        yield return new WaitForSecondsRealtime(2f);
+
+        SceneManager.LoadScene(0);
     }
 
     private void SaveScore()
@@ -92,18 +129,16 @@ public class GameManager : MonoBehaviour
 
     public int GetNextKingdomNumber(int cartIndex)
     {
-        cartNumbers[cartIndex] = -1;
         int output = -1;
-        for (int j = 0; j < 20; j++)
+        while (true)
         {
-            output = Random.Range(0, maxKingdom);
+            output = Random.Range(0, maxKingdom + 1);
             bool allowed = true;
-            for (int i = 0; i < 2; i++)
+            for (int i = 0; i < 3; i++)
             {
                 if (output == cartNumbers[i])
                 {
                     allowed = false;
-                    break;
                 }
             }
             if (allowed) break;
