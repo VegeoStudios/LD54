@@ -30,6 +30,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private PositionConstraint[] armPositionConstraints;
     [SerializeField] private Transform sweatIndicator;
     [SerializeField] private VisualEffect trail;
+    [SerializeField] private RandomSoundPool soundPool;
+
+    private float lastFootstep;
 
     private void Start()
     {
@@ -44,6 +47,7 @@ public class PlayerController : MonoBehaviour
         DoRotation();
         AnimateArms();
         DoParticles();
+        DoSound();
     }
 
     private void FixedUpdate()
@@ -75,6 +79,16 @@ public class PlayerController : MonoBehaviour
         if (input.sprint && !grabbedObject) speed = movementParameters.sprintMoveSpeed;
         rb.AddForce(targetMovement * speed * rb.mass * multiplier);
         //rb.velocity = targetMovement * (input.sprint ? movementParameters.sprintMoveSpeed : movementParameters.baseMoveSpeed);
+    }
+
+    private void DoSound()
+    {
+        float currentWait = 1 / rb.velocity.magnitude;
+        if (lastFootstep + currentWait < Time.time)
+        {
+            lastFootstep = Time.time;
+            soundPool.PlaySoundFromPool();
+        }
     }
 
     private void DoParticles()
@@ -181,6 +195,7 @@ public class PlayerController : MonoBehaviour
     {
         input = GetComponent<PlayerInputHandler>();
         rb = GetComponent<Rigidbody>();
+        soundPool = GetComponent<RandomSoundPool>();
     }
 
     private Vector3 RemapXYtoXZ(Vector3 v)
